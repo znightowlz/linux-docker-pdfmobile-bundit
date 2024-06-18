@@ -1,0 +1,37 @@
+-- -- select * from register_record;
+
+-- ALTER TABLE register_record ADD CONSTRAINT fk_occu FOREIGN KEY (occu) REFERENCES occupation (id_occ);
+
+-- CREATE OR REPLACE VIEW register_record_with_name AS
+-- SELECT o.id_occ, o.name_occ AS occu
+-- FROM register_record r
+-- JOIN occupation o ON r.occu = o.id_occ;
+
+*--ตั้ง foreign key inherit from occu_ref table
+source: https://devhub.in.th/blog/foreign-key#:~:text=%E0%B8%84%E0%B8%B3%E0%B8%AA%E0%B8%B1%E0%B9%88%E0%B8%87%20ON%20DELETE%20CASCADE,%E0%B8%95%E0%B8%B2%E0%B8%A1%E0%B9%84%E0%B8%9B%E0%B8%94%E0%B9%89%E0%B8%A7%E0%B8%A2%E0%B9%80%E0%B8%8A%E0%B9%88%E0%B8%99%E0%B8%81%E0%B8%B1%E0%B8%99
+alter table register_record
+add id_occu_ref integer not null,
+add FOREIGN KEY(id_occu_ref) references occu_ref(id_occu_ref);
+
+*--Inherit table Read
+source:https://medium.com/@turbo8p/table-inheritance-in-posgresql-90661e837e4f
+
+*--Delete cascade For Delete Foreign key
+https://devhub.in.th/blog/foreign-key#:~:text=%E0%B8%84%E0%B8%B3%E0%B8%AA%E0%B8%B1%E0%B9%88%E0%B8%87%20ON%20DELETE%20CASCADE,%E0%B8%95%E0%B8%B2%E0%B8%A1%E0%B9%84%E0%B8%9B%E0%B8%94%E0%B9%89%E0%B8%A7%E0%B8%A2%E0%B9%80%E0%B8%8A%E0%B9%88%E0%B8%99%E0%B8%81%E0%B8%B1%E0%B8%99
+
+*--insert multiple values
+insert into occu_ref(id_occu_ref,name_occu_ref)
+values ('1','นิสิต'),('2','อาจารย์'),('3','เจ้าหน้าที่กบศ');
+
+*--DbDiagram สำหรับ สร้างไดอะแกรม
+https://dbdiagram.io/home
+
+*--Secret Key 
+source : https://www.jittagornp.me/blog/what-is-public-key-private-key/
+
+*--Cascade key before drop table
+ALTER TABLE occu_ref DROP CONSTRAINT occu_ref_pkey CASCADE;
+
+*--Add constraint 
+ALTER TABLE occu_ref
+ADD CONSTRAINT occu_ref_pkey PRIMARY KEY (name_occu_ref);

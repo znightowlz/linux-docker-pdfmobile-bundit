@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colorlib Templates">
+    <meta name="author" content="Colorlib">
+    <meta name="keywords" content="Colorlib Templates">
+
+    <!-- Title Page-->
+    <title>Register1234</title>
+
+    <!-- Icons font CSS-->
+    <link href="static/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="static/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <!-- Font special for pages-->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i"
+        rel="stylesheet"> -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Athiti:wght@200;300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Vendor CSS-->
+    <link href="static/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="static/vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="static/css/main.css" rel="stylesheet" media="all">
+</head>
+
+<body>
+    <div class="form-group">
+        <div class="page-wrapper bg-blue p-t-100 p-b-100 athiti-medium">
+            <div class="wrapper wrapper--w680">
+                <div class="card card-1 ">
+                    <div class="card-heading"></div>
+                    <div class="card-body">
+                        <h2 class="title">Sign UP</h2>
+                        <form action="{{ url_for('register') }}" method="POST" autocomplete="off">
+                            <div class="input-group">
+                                <input class="input--style-1" type="text" placeholder="รหัสประจำตัว" name="userid">
+                            </div>
+                            <div class="input-group">
+                                <input class="input--style-1" type="text" placeholder="ชื่อจริง" name="realname">
+                            </div>
+                            <div class="input-group">
+                                <input class="input--style-1" type="text" placeholder="นามสกุล" name="surname">
+                            </div>
+                            <div class="input-group">
+                                <div class="rs-select2 js-select-simple select--no-search athiti-medium">
+                                    <select name="name_occu_ref" class="form-control">
+                                        <option disabled="disabled" selected="selected">อาชีพ</option>
+                                        {% for name_occu_ref in occu_ref %}
+                                            <option>{{ name_occu_ref[0]}}</option>
+                                        {% endfor %}
+                                    </select>
+                                    
+                                    <div class="select-dropdown"></div>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <input class="input--style-1" type="text" placeholder="Email" name="email">
+                            </div>
+                            <div class="input-group">
+                                <input class="input--style-1" type="password" placeholder="Password" name="password_reg">
+                            </div>
+                            <div class="p-t-20">
+                                <button class="btn btn--radius btn--green" type="submit">Submit</button>
+                            </div>
+
+                            <div class="p-t-20 athiti-medium">
+                                <a class="btn btn--radius btn--purple" href="{{ url_for('login_index') }}">กลับไปยังหน้าล็อกอิน</a>
+                            </div>
+                            
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Jquery JS-->
+        <script src="static/vendor/jquery/jquery.min.js"></script>
+        <!-- Vendor JS-->
+        <script src="static/vendor/select2/select2.min.js"></script>
+        <script src="static/vendor/datepicker/moment.min.js"></script>
+        <script src="static/vendor/datepicker/daterangepicker.js"></script>
+
+        <!-- Main JS-->
+        <script src="static/js/global.js"></script>
+    </div>
+
+
+    <script>
+        function validateForm() {
+            var userid = document.forms["register"]["userid"].value;
+            var realname = document.forms["register"]["realname"].value;
+            var surname = document.forms["register"]["surname"].value;
+            var email = document.forms["register"]["email"].value;
+            var password = document.forms["register"]["password_reg"].value;
+            
+            var useridRegex = /^\d+$/;
+            var nameRegex = /^[a-zA-Zก-๙\s]+$/;
+            var emailRegex = /^[a-z0-9._]+@[a-z]+\.[a-z]{2,3}$/;
+            var passwordRegex = /^[a-z0-9._!]+$/;
+            
+            if (!useridRegex.test(userid)) {
+                alert("กรุณากรอกตัวเลขเท่านั้นในช่อง userid");
+                return false;
+            }
+            if (!nameRegex.test(realname)) {
+                alert("กรุณากรอกอักษรไทยหรืออังกฤษเท่านั้นในช่องชื่อจริง");
+                return false;
+            }
+            if (!nameRegex.test(surname)) {
+                alert("กรุณากรอกอักษรไทยหรืออังกฤษเท่านั้นในช่องนามสกุล");
+                return false;
+            }
+            if (!emailRegex.test(email)) {
+                alert("กรุณากรอกอีเมลให้ถูกต้อง");
+                return false;
+            }
+            if (!passwordRegex.test(password)) {
+                alert("กรุณากรอกรหัสผ่านให้ถูกต้อง");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+</html>
+<!-- end document-->
